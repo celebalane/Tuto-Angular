@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Book } from '../../models/book.model';
+import { BooksService } from '../../services/books.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-form',
@@ -7,9 +11,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookFormComponent implements OnInit {
 
-  constructor() { }
+  bookForm: FormGroup;
 
+  constructor(private formBuilder: FormBuilder, private booksService: BooksService,
+              private router: Router) { }
+              
   ngOnInit() {
+    this.initForm();
   }
-
+  
+  initForm() {  //Création du formulaire d'enregistrement d'un livre
+    this.bookForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      synopsis: ''
+    });
+  }
+  
+  onSaveBook() {
+    const title = this.bookForm.get('title').value;  //Récupération des valeurs du form
+    const author = this.bookForm.get('author').value;
+    const synopsis = this.bookForm.get('synopsis').value;
+    const newBook = new Book(title, author);
+    newBook.synopsis = synopsis;
+    this.booksService.createNewBook(newBook);  //Appel au service booksService et à la fonction createNewBook pour l'enregistrement
+    this.router.navigate(['/books']);  //Renvoie à la liste des livres une fois enregistré
+  }
 }
+
+

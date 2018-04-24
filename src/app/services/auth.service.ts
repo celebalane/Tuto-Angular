@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import * as firebase from 'firebase';
 
-@Injectable()
+@Injectable() //Permet d'injecter dans AuthService un autre service
 export class AuthService {
 
   constructor() { }

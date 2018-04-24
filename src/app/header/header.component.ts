@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit() {
+  ngOnInit() {  //Au chargement du component
     firebase.auth().onAuthStateChanged(  //Récupération du statut d'authentification à chaque changement pour l'affichage des liens
       (user) => {
         if(user) {
