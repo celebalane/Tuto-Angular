@@ -16,7 +16,7 @@ export class AuthGuardService implements CanActivate {  //Sécurisation des lien
             if(user) {
               resolve(true);
             } else {
-              this.router.navigate(['/auth', 'signin']);
+              this.router.navigate(['/auth', 'signin']); //Si non connecté, redirection vers la page de connexion
               resolve(false);
             }
           }

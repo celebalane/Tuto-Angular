@@ -17,7 +17,7 @@ import { AuthService} from './services/auth.service';
 import { BooksService} from './services/books.service';
 import { AuthGuardService} from './services/auth-guard.service';
 
-const appRoutes : Routes = [
+const appRoutes : Routes = [                                 //Chemin des routes
   { path: 'auth/signup', component: SignupComponent },
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/reset-password', component: ForgetPasswordComponent },
@@ -46,7 +46,7 @@ const appRoutes : Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, BooksService, AuthGuardService],
+  providers: [AuthService, BooksService, AuthGuardService], //Services
   bootstrap: [AppComponent]
 })
 

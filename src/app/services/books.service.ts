@@ -51,7 +51,7 @@ export class BooksService {
 
   //Action sur les livres
   createNewBook(newBook: Book) {  //Création
-    this.books.push(newBook);
+    this.books.push(newBook); //Pousse à la suite dans le tableau
     this.saveBooks();
     this.emitBooks();
   }
@@ -64,7 +64,7 @@ export class BooksService {
         }
       }
     );
-    this.books.splice(bookIndexToRemove, 1);
+    this.books.splice(bookIndexToRemove, 1); //Supprime du tableau selon l'index
     this.saveBooks();
     this.emitBooks();
   }
