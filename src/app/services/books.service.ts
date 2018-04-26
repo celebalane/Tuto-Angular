@@ -57,6 +57,18 @@ export class BooksService {
   }
 
   removeBook(book: Book) { //Supression
+    if(book.photo) { //Suppression de la photo liée au livre
+      const storageRef = firebase.storage().refFromURL(book.photo); //Pour la suppression avec delete, on a besoin d'une référence, ca sera l'url
+      storageRef.delete().then(
+        () => {
+          console.log('Photo removed!');
+        },
+        (error) => {
+          console.log('Could not remove photo! : ' + error);
+        }
+      );
+    }
+
     const bookIndexToRemove = this.books.findIndex(
       (bookEl) => {
         if(bookEl === book) {    //Recherche une correspondance, si true, l'index est le bon et la constante à son index
@@ -67,5 +79,27 @@ export class BooksService {
     this.books.splice(bookIndexToRemove, 1); //Supprime du tableau selon l'index
     this.saveBooks();
     this.emitBooks();
+  }
+
+  uploadFile(file: File) {  //Enregistrement d'une photo
+    return new Promise(  //Utilisation d'une promise car cela met du temps
+      (resolve, reject) => {
+        const almostUniqueFileName = Date.now().toString(); //Création d'un préfixe unique pour rendre le nom de fichier envoyé unique
+        const upload = firebase.storage().ref()
+          .child('images/' + almostUniqueFileName + file.name).put(file); //On stocke les images dans le sous dossier images
+        upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
+          () => {
+            console.log('Chargement…');
+          },
+          (error) => {
+            console.log('Erreur de chargement ! : ' + error);
+            reject();
+          },
+          () => {
+            resolve(upload.snapshot.downloadURL); //Retourne l'url du fichier enregistré
+          }
+        );
+      }
+    );
   }
 }
