@@ -26,8 +26,8 @@ export class BooksService {
   getBooks() {  //Récupération de la liste des livres
     firebase.database().ref('/books')
       .on('value', (data: DataSnapshot) => {            /*'value' demande à firebase d'exécuter le callback (Datasnapshot->objet comportant les données voulues) 
-      													à chaque modification de valeur enregistrée au endpoint choisi
-      													la liste sera toujours à jour*/
+      													                        à chaque modification de valeur enregistrée au endpoint choisi
+      													                        la liste sera toujours à jour*/
           this.books = data.val() ? data.val() : [];  //val() -> récupère la valeur
           this.emitBooks();
         }
@@ -55,6 +55,12 @@ export class BooksService {
     this.saveBooks();
     this.emitBooks();
   }
+
+/*  editBook(editBook: Book, id: number) {  //Edition
+    firebase.database().ref('/books/' + id).set({ editBook }); //Changement des données selon l'id
+    this.saveBooks();
+    this.emitBooks();
+  }*/
 
   removeBook(book: Book) { //Supression
     if(book.photo) { //Suppression de la photo liée au livre

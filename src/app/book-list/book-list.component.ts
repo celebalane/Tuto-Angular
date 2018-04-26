@@ -17,17 +17,21 @@ export class BookListComponent implements OnInit, OnDestroy {
   constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit() {
-    this.booksSubscription = this.booksService.booksSubject.subscribe( //Soubscription au sujet books pour pouvoir récuperer ses données et les emettres
+    this.booksSubscription = this.booksService.booksSubject.subscribe( //Soupscription au sujet books pour pouvoir récuperer ses données et les emettres
       (books: Book[]) => {
         this.books = books;
       }
     );
-    this.booksService.emitBooks();
+    this.booksService.getBooks();
   }
 
   onNewBook() {  //Création
     this.router.navigate(['/books', 'new']); //Router
   }
+
+/*  onEditBook(id: number){
+    this.router.navigate(['/books', 'edit', id]);
+  }*/
 
   onDeleteBook(book: Book) {  //Supression
     this.booksService.removeBook(book);

@@ -12,6 +12,7 @@ import { BookListComponent } from './book-list/book-list.component';
 import { SingleBookComponent } from './book-list/single-book/single-book.component';
 import { BookFormComponent } from './book-list/book-form/book-form.component';
 import { HeaderComponent } from './header/header.component';
+/*import { EditBookComponent } from './book-list/edit-book/edit-book.component';*/
 
 import { AuthService} from './services/auth.service';
 import { BooksService} from './services/books.service';
@@ -23,6 +24,7 @@ const appRoutes : Routes = [                                 //Chemin des routes
   { path: 'auth/reset-password', component: ForgetPasswordComponent },
   { path: 'books', canActivate: [AuthGuardService], component: BookListComponent },
   { path: 'books/new', canActivate: [AuthGuardService], component: BookFormComponent },
+  /*{ path: 'books/edit/:id', canActivate: [AuthGuardService], component: EditBookComponent },*/
   { path: 'books/view/:id', canActivate: [AuthGuardService], component: SingleBookComponent },
   { path: '', redirectTo: 'books', pathMatch: 'full' },
   { path: '**', redirectTo: 'books' }
@@ -37,7 +39,8 @@ const appRoutes : Routes = [                                 //Chemin des routes
     SingleBookComponent,
     BookFormComponent,
     HeaderComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    /*EditBookComponent*/
   ],
   imports: [
     BrowserModule,
